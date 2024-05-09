@@ -1,0 +1,43 @@
+{% extends 'maitreRestaurant.html' %}
+{% load crispy_forms_tags %}
+
+{% block titre %} 
+   Restaurant - {{ restaurant.nomRestaurant }}
+{% endblock %}
+
+{% block contenu %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Détails du restaurant</div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Nom du restaurant:</dt>
+                        <dd class="col-sm-9">{{ restaurant.nomRestaurant }}</dd>
+
+                        <dt class="col-sm-3">Ville:</dt>
+                        <dd class="col-sm-9">{{ restaurant.villeRestaurant }}</dd>
+
+                        <dt class="col-sm-3">Type de restaurant:</dt>
+                        <dd class="col-sm-9">{{ restaurant.typeRestaurant }}</dd>
+                    
+                    </dl>
+                    <a href="{% url 'listeRestaurant' %}" class="btn btn-primary">Retour</a>
+                    {% if user.is_staff %}
+                    <a href="{% url 'modifierRestaurant' restaurant.noRestaurant %}" class="btn btn-danger">Modifier</a>
+                    <a href="{% url 'supprimerRestaurant' restaurant.noRestaurant %}" class="btn btn-danger">Supprimer</a>     
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'ajouterCommentaire' restaurant.noRestaurant %}" class="btn btn-outline-primary">🖍️ Rédiger un commentaire</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary">🖍️ Rédiger un commentaire</a
+                    {% endif %}>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

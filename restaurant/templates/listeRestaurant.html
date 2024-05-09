@@ -1,0 +1,38 @@
+{% extends 'maitreRestaurant.html' %} 
+{% load crispy_forms_tags %}
+{}
+
+{% block titre %} 
+   Liste des restaurants
+{% endblock %}
+
+{% block contenu %}  
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card-deck">
+                {% for restaurant in restaurants %}
+                <a href="{% url 'detailRestaurant' restaurant.noRestaurant %}">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h5 class="card-title">{{ restaurant.nomRestaurant }}</h5>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <i class="fas fa-map-pin"></i>
+                                    <p class="card-text">{{ restaurant.villeRestaurant }}</p>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <p class="card-text">{{ restaurant.typeRestaurant.nomType }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

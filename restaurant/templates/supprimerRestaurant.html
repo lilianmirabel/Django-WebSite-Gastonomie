@@ -1,0 +1,18 @@
+{% extends 'maitreRestaurant.html' %}
+
+{% block titre %}Supprimer un restaurant{% endblock %}
+{% block titre_page %}Supprimer le restaurant{% endblock %}
+
+{% block contenu %}
+<div class="container">
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <table class="table">
+            <tr>
+                <td><p>Voulez-vous supprimer {{ restaurant.nomRestaurant }} situé à {{ restaurant.villeRestaurant }}</p></td>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+    </form>
+</div>
+{% endblock %}

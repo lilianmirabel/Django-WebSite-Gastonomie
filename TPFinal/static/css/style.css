@@ -1,0 +1,27 @@
+header {
+  background-color: #023e8a;
+  padding-bottom: 20px;
+  padding-top: 19px;
+}
+
+header h1 {
+  text-align: center;
+  color: #ffb703;
+}
+
+
+h2 {
+  margin-top: 10px;
+  margin-left: 25px;
+}
+
+h5 {
+  margin-left: 25px;
+}
+
+.paragraphe {
+  background-color: rgb(185, 185, 185);
+  border-radius: 10px;
+  margin-left: 25px;
+  margin-right: 25px;
+}

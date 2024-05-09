@@ -1,0 +1,27 @@
+{% extends 'maitreRestaurant.html' %} 
+{% load crispy_forms_tags %}
+
+{% block titre %} 
+   Ajout d'un restaurant
+{% endblock %}
+
+{% block contenu %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Ajout d'un restaurant</div>
+                <div class="card-body">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary mt-3">Ajouter</button>
+                        <button type="button" class="btn btn-primary mt-3" onclick="window.location.href='/restaurant/ajoutTypeRestaurant'">Ajouter un Type</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
