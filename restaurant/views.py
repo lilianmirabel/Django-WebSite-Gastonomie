@@ -28,7 +28,7 @@ class ajoutRestaurant(CreateView):
   form_class = ajoutRestaurantForm
 
   def get_success_url(self):
-      return reverse('accueil')
+      return reverse('listeRestaurant')
 
   def form_valid(self, form):
         form.save()
@@ -48,10 +48,18 @@ class detailRestaurant(DetailView):
     model = Restaurant
     template_name = 'detailRestaurant.html'
     context_object_name = 'restaurant'
-
+    
     def get_context_data(self, **kwargs):
+        unCommentaire = self.get_object()
         context = super().get_context_data(**kwargs)
         context['commentaires'] = Commentaire.objects.filter(noRestaurant=self.object)
+        
+        if self.request.user.is_authenticated:
+            commentaire_exist = Commentaire.objects.filter(noRestaurant=unCommentaire, userName=self.request.user).exists()
+            context['commentaire_exist'] = commentaire_exist
+        else:
+            context['commentaire_exist'] = False
+        
         return context
 
 class modifierRestaurant(UpdateView):

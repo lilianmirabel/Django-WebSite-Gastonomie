@@ -1,0 +1,18 @@
+{% extends 'maitreCommentaire.html' %}
+
+{% block titre %}Supprimer un commentaire{% endblock %}
+{% block titre_page %}Supprimer le commentaire{% endblock %}
+
+{% block contenu %}
+<div class="container">
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <table class="table">
+            <tr>
+                <td><p>Voulez-vous supprimer le commentaire : {{ unCommentaire.commentaire }} noté à {{ unCommentaire.note }}</p></td>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+    </form>
+</div>
+{% endblock %}

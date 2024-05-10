@@ -9,4 +9,6 @@ urlpatterns = [
     path('modifierRestaurant/<int:pk>/', modifierRestaurant.as_view(), name='modifierRestaurant'),
     path('supprimerRestaurant/<int:pk>/', supprimerRestaurant.as_view(), name='supprimerRestaurant'),
     path('ajouterCommentaire/<int:pk>/', include('commentaire.urls')),
+    path('modifierCommentaire/<int:pk>/', include('commentaire.urls')),
+    path('supprimerCommentaire/<int:pk>/', include('commentaire.urls')),
 ]

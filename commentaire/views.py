@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from commentaire.forms import ajouterCommentaireForm
+from commentaire.forms import ajouterCommentaireForm, modifierCommentaireForm
 from restaurant.models import Restaurant, TypeResto, Commentaire
 from datetime import datetime, timedelta
 from django.urls import reverse
@@ -27,3 +27,35 @@ class ajouterCommentaire(CreateView):
       context = super().get_context_data(**kwargs)
       context["txtBouton"] = 'Ajouter'
       return context
+
+class ListeCommentaires(ListView):
+    model = Commentaire
+    template_name = 'listeCommentaires.html'
+    context_object_name = 'commentaires'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Commentaire.objects.filter(userName=user)
+
+class modifierCommentaire(UpdateView):
+    model = Commentaire
+    template_name = 'modifierCommentaire.html'
+    form_class = modifierCommentaireForm
+    context_object_name = 'unCommentaire'
+
+    def get_success_url(self):
+        return reverse('listeRestaurant')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["txtBouton"] = 'Modifier'
+        return context
+
+class supprimerCommentaire(DeleteView):
+    model = Commentaire
+    template_name = 'supprimerCommentaire.html'
+    context_object_name = 'unCommentaire'
+
+    def get_success_url(self):
+        return reverse('listeRestaurant')
+
