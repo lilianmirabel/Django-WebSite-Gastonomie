@@ -27,6 +27,14 @@
 
                         <dt class="col-sm-3">Type de restaurant:</dt>
                         <dd class="col-sm-9">{{ restaurant.typeRestaurant }}</dd>
+
+                        <dt class="col-sm-3">Note de la communauté:</dt>
+                        <dd class="col-sm-9">
+                            {% if restaurant.moyenneNote != null %}
+                            {{ restaurant.moyenneNote }}⭐</p>
+                            {% else %}
+                            Aucune note
+                            {% endif %}</dd>
                     
                     </dl>
                     <a href="{% url 'listeRestaurant' %}" class="btn btn-primary">Retour</a>

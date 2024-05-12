@@ -1,6 +1,5 @@
 {% extends 'maitreRestaurant.html' %}
 {% load crispy_forms_tags %}
-{}
 
 {% block titre %} 
    Liste des restaurants
@@ -17,7 +16,23 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card-deck">
+            <form method="get" class="mb-4">
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ filter_form.nom|as_crispy_field }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ filter_form.ville|as_crispy_field }}
+                    </div>
+                    <div class="col-sm-4">
+                        {{ filter_form.type|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-outline-secondary">Rechercher</button>
+                </div>
+            </form>
+            <div class="card-deck" id="restaurantList">
                 {% for restaurant in restaurants %}
                 <a href="{% url 'detailRestaurant' restaurant.noRestaurant %}" class="card-link"> 
                     <div class="card mb-4">
@@ -26,12 +41,19 @@
                                 <div class="col-4">
                                     <h5 class="card-title">{{ restaurant.nomRestaurant }}</h5>
                                 </div>
-                                <div class="col-4 text-center">
+                                <div class="col-3 text-center">
                                     <i class="fas fa-map-pin"></i>
                                     <p class="card-text">{{ restaurant.villeRestaurant }}</p>
                                 </div>
-                                <div class="col-4 text-right">
+                                <div class="col-3 text-right">
                                     <p class="card-text">{{ restaurant.typeRestaurant.nomType }}</p>
+                                </div>
+                                <div class="col-2 text-right">
+                                    <p class="card-text">{% if restaurant.moyenneNote != null %}
+                                        {{ restaurant.moyenneNote }}⭐</p>
+                                        {% else %}
+                                        Aucune note
+                                        {% endif %}</p>
                                 </div>
                             </div>
                         </div>
@@ -39,6 +61,7 @@
                 </a>
                 {% endfor %}
             </div>
+            
             <div class="text-center">
                 {% if user.is_authenticated %}
                 <a href="{% url 'ajoutRestaurant' %}" class="btn btn-outline-success">➕ Ajouter</a>
@@ -47,4 +70,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

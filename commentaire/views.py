@@ -4,6 +4,7 @@ from commentaire.forms import ajouterCommentaireForm, modifierCommentaireForm
 from restaurant.models import Restaurant, TypeResto, Commentaire
 from datetime import datetime, timedelta
 from django.urls import reverse
+from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View, DeleteView
 
 class ajouterCommentaire(CreateView):
@@ -59,3 +60,12 @@ class supprimerCommentaire(DeleteView):
     def get_success_url(self):
         return reverse('listeRestaurant')
 
+class consulterCommentaires(ListView):
+    model = Commentaire
+    template_name = 'consulterCommentaires.html'
+    context_object_name = 'lesCommentaires'
+
+    def get_queryset(self):
+        id = self.kwargs.get('pk')
+        user = User.objects.get(id=id)
+        return Commentaire.objects.filter(userName=user)

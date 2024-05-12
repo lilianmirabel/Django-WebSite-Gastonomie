@@ -1,0 +1,35 @@
+{% extends 'maitreAdmin.html' %}
+{% load crispy_forms_tags %}
+
+{% block titre %} 
+   Page Administrateur
+{% endblock %}
+
+{% block contenu %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Utilisateurs
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for user in utilisateurs %}
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ user.username }}</h5>
+                                    <p class="card-text">{{ user.email }}</p>
+                                    <a href="{% url 'consulterCommentaires' user.id %}" class="btn btn-sm btn-info">👁 Voir</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

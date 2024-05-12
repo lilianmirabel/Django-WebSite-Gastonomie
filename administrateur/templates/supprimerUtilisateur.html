@@ -1,7 +1,7 @@
-{% extends 'maitreCommentaire.html' %}
+{% extends 'maitreAdmin.html' %}
 
-{% block titre %}Supprimer un commentaire{% endblock %}
-{% block titre_page %}Supprimer le commentaire{% endblock %}
+{% block titre %}Supprimer un utilisateur{% endblock %}
+{% block titre_page %}Supprimer l'utilisateur{% endblock %}
 
 {% block contenu %}
 <div class="container">
@@ -9,7 +9,7 @@
         {% csrf_token %}
         <table class="table">
             <tr>
-                <td><p>Voulez-vous supprimer le commentaire : {{ unCommentaire.commentaire }} noté à {{ unCommentaire.note }}⭐</p></td>
+                <td><p>Voulez-vous supprimer l'utilisateur {{utilisateur.username}}</p></td>
             </tr>
         </table>
         <button type="submit" class="btn btn-danger">Supprimer</button>

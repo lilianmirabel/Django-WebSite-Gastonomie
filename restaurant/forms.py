@@ -54,3 +54,7 @@ class ajoutRestaurantForm(forms.ModelForm):
             )
         )
         
+class RestaurantFilterForm(forms.Form):
+    nom = forms.CharField(required=False)
+    ville = forms.CharField(required=False)
+    type = forms.ModelChoiceField(queryset=TypeResto.objects.all(), required=False)

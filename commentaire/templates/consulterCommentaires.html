@@ -1,0 +1,65 @@
+{% extends 'maitreCommentaire.html' %}
+{% load crispy_forms_tags %}
+
+{% block titre %} 
+   Consulter les commentaires
+{% endblock %}
+
+{% block contenu %}
+
+<style>
+    .btn-no-underline {
+        text-decoration: none;
+    }
+
+    .edit-link {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+    }
+
+    .delete-link {
+        position: absolute;
+        top: 0;
+        right: 35px;
+        margin: 10px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Activité de l'utilisateur</div>
+                <div class="card-body"> 
+                    {% for commentaire in lesCommentaires %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <a href="{% url 'modifierCommentaire' commentaire.noCommentaire %}" class="btn-no-underline delete-link">🖍️</a>
+                                <a href="{% url 'supprimerCommentaire' commentaire.noCommentaire %}" class="btn-no-underline edit-link">🗑️</a>
+                                <h5 class="card-title">Restaurant: {{ commentaire.noRestaurant.nomRestaurant }} à {{ commentaire.noRestaurant.villeRestaurant }}</h5>
+                                <p class="card-text"><strong>Type de restaurant:</strong> {{ commentaire.noRestaurant.typeRestaurant }}</p>
+                                <p class="card-text"><strong>Date:</strong> {{ commentaire.dateCommentaire }}</p>
+                                <p class="card-text"><strong>Commentaire:</strong> {{ commentaire.commentaire }}</p>
+                                <p class="card-text"><strong>Note:</strong> {{ commentaire.note }}⭐</p>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text">Aucun commentaire trouvé.</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+
+{% endblock %}

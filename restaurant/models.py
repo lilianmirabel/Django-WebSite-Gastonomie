@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Avg
 import datetime
 
 class TypeResto(models.Model):
@@ -14,7 +15,10 @@ class Restaurant(models.Model):
     nomRestaurant       = models.CharField(max_length=25)
     villeRestaurant     = models.CharField(max_length=25)
     typeRestaurant      = models.ForeignKey(TypeResto,on_delete=models.DO_NOTHING)
-    
+
+    def moyenneNote(self):
+       return self.commentaire_set.aggregate(avg_note=Avg('note'))['avg_note']
+
 class Commentaire(models.Model):
     noCommentaire       = models.AutoField(primary_key=True)
     noRestaurant        = models.ForeignKey(Restaurant,on_delete=models.DO_NOTHING)

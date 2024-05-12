@@ -18,7 +18,7 @@
             <div class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                 {% if user.is_staff %}
-                <a class="nav-link" href="/administrateur">Admin</a>
+                <a class="nav-link" href="/administrateur/administrateur">Admin</a>
             {% endif %}
                     <a class="nav-link" href="/commentaire/ListeCommentaires">Mes commentaires</a>
                     <form method="post" action="{% url 'logout' %}">

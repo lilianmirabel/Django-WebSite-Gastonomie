@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from restaurant.forms import ajoutTypeRestaurantForm, ajoutRestaurantForm
+from restaurant.forms import ajoutTypeRestaurantForm, ajoutRestaurantForm, RestaurantFilterForm
 from .models import Restaurant, TypeResto, Commentaire
 from datetime import datetime, timedelta
+from django.db.models import Avg
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View, DeleteView
 
@@ -12,7 +13,7 @@ class ajoutTypeRestaurant(CreateView):
   form_class = ajoutTypeRestaurantForm
 
   def get_success_url(self):
-      return reverse('accueil')
+      return reverse('listeRestaurant')
 
   def form_valid(self, form):
         form.save()
@@ -43,6 +44,26 @@ class listeRestaurant(ListView):
     model = Restaurant
     template_name = 'listeRestaurant.html'
     context_object_name = 'restaurants'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        form = RestaurantFilterForm(self.request.GET)
+        if form.is_valid():
+            nom = form.cleaned_data.get('nom')
+            ville = form.cleaned_data.get('ville')
+            type = form.cleaned_data.get('type')
+            if nom:
+                queryset = queryset.filter(nomRestaurant__icontains=nom)
+            if ville:
+                queryset = queryset.filter(villeRestaurant__icontains=ville)
+            if type:
+                queryset = queryset.filter(typeRestaurant=type)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_form'] = RestaurantFilterForm(self.request.GET)
+        return context
 
 class detailRestaurant(DetailView):
     model = Restaurant

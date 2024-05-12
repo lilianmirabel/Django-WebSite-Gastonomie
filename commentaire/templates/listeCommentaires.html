@@ -36,7 +36,7 @@
           <div class="card mb-3">
             <div class="card-body">
               <a href="{% url 'modifierCommentaire' commentaire.noCommentaire %}" class="btn-no-underline delete-link">🖍️</a>
-              <a href="#" class="btn-no-underline edit-link">🗑️</a>
+              <a href="{% url 'supprimerCommentaire' commentaire.noCommentaire %}" class="btn-no-underline edit-link">🗑️</a>
               <h5 class="card-title">Restaurant: {{ commentaire.noRestaurant.nomRestaurant }} à {{ commentaire.noRestaurant.villeRestaurant }}</h5>
               <p class="card-text"><strong>Type de restaurant:</strong> {{ commentaire.noRestaurant.typeRestaurant }}</p>
               <p class="card-text"><strong>Date:</strong> {{ commentaire.dateCommentaire }}</p>
